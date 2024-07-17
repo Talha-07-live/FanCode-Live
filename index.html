@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Embed with Fullscreen</title>
+    <title>Video Embed with Controls</title>
     <style>
         .video-container {
             position: relative;
@@ -33,21 +33,19 @@
     <div class="video-container">
         <iframe id="videoIframe" src="https://en.gdplayertv.to/embed/astro-cricket/?embed=1&autoplay=1&mute=1&quality=low" frameborder="0" allow="autoplay; fullscreen"></iframe>
         <div class="buttons">
-            <button onclick="fullscreenVideo()">Fullscreen</button>
+            <button onclick="simulateUnmuteClick()">Unmute</button>
         </div>
     </div>
 
     <script>
-        function fullscreenVideo() {
+        function simulateUnmuteClick() {
             const iframe = document.getElementById('videoIframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) { // Firefox
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) { // IE/Edge
-                iframe.msRequestFullscreen();
+            const unmuteButton = iframe.contentDocument.querySelector('your-unmute-button-selector');
+            
+            if (unmuteButton) {
+                unmuteButton.click(); // Simulate click on the unmute button
+            } else {
+                console.error('Unmute button not found within the iframe.');
             }
         }
     </script>
