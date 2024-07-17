@@ -21,6 +21,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
+            pointer-events: auto;
         }
         .buttons button {
             margin: 0 5px;
@@ -41,13 +42,9 @@
     <script>
         function unmuteVideo() {
             const iframe = document.getElementById('videoIframe');
-            // Reload iframe with mute=0 to unmute the video
-            let currentSrc = iframe.src;
-            let newSrc = currentSrc.replace('mute=1', 'mute=0');
-            if (!currentSrc.includes('mute=1') && !currentSrc.includes('mute=0')) {
-                newSrc += '&mute=0';
-            }
-            iframe.src = newSrc;  // This will reload the iframe
+            const currentSrc = iframe.src;
+            const newSrc = currentSrc.includes('mute=1') ? currentSrc.replace('mute=1', 'mute=0') : currentSrc + '&mute=0';
+            iframe.src = newSrc;
         }
 
         function fullscreenVideo() {
