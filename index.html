@@ -18,27 +18,57 @@
         }
     </style>
     <script>
-        // Function to block specific URLs from opening in new tabs/windows
-        function blockSpecificLinks() {
+        function injectControls() {
             const iframe = document.querySelector('iframe');
             if (iframe) {
                 iframe.onload = function() {
                     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
                     if (iframeDocument) {
-                        // Override click event within the iframe's document
-                        iframeDocument.addEventListener('click', function(e) {
-                            if (e.target.tagName === 'A' && e.target.href &&
-                                (e.target.href === 'https://zq.shallalflexors.top/' || e.target.href === 'https://pw.avowsbethorn.top/')) {
-                                e.preventDefault();
-                                console.log('Blocked an attempt to open a restricted link in the iframe:', e.target.href);
+                        // Create a div for the invisible layer
+                        const invisibleLayer = iframeDocument.createElement('div');
+                        invisibleLayer.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;';
+
+                        // Create unmute button
+                        const unmuteButton = iframeDocument.createElement('button');
+                        unmuteButton.textContent = 'Unmute';
+                        unmuteButton.style.cssText = 'position: absolute; top: 20px; left: 20px; z-index: 9999;';
+                        unmuteButton.onclick = function() {
+                            const video = iframeDocument.querySelector('video');
+                            if (video) {
+                                video.muted = false;
+                                console.log('Video unmuted');
                             }
-                        });
+                        };
+
+                        // Create fullscreen button
+                        const fullscreenButton = iframeDocument.createElement('button');
+                        fullscreenButton.textContent = 'Fullscreen';
+                        fullscreenButton.style.cssText = 'position: absolute; top: 20px; right: 20px; z-index: 9999;';
+                        fullscreenButton.onclick = function() {
+                            const video = iframeDocument.querySelector('video');
+                            if (video) {
+                                if (video.requestFullscreen) {
+                                    video.requestFullscreen();
+                                } else if (video.webkitRequestFullscreen) {
+                                    video.webkitRequestFullscreen();
+                                } else if (video.msRequestFullscreen) {
+                                    video.msRequestFullscreen();
+                                }
+                            }
+                        };
+
+                        // Append buttons to invisible layer
+                        invisibleLayer.appendChild(unmuteButton);
+                        invisibleLayer.appendChild(fullscreenButton);
+
+                        // Append invisible layer to iframe document body
+                        iframeDocument.body.appendChild(invisibleLayer);
                     }
                 };
             }
         }
 
-        window.onload = blockSpecificLinks;
+        window.onload = injectControls;
     </script>
 </head>
 <body>
