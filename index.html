@@ -46,7 +46,7 @@
 </head>
 <body>
     <div class="video-container">
-        <iframe src="https://en.gdplayertv.to/embed/astro-cricket/?embed=1&autoplay=1&mute=1&quality=low" frameborder="0" allow="autoplay; fullscreen"></iframe>
+        <iframe id="videoIframe" src="https://en.gdplayertv.to/embed/astro-cricket/?embed=1&autoplay=1&mute=1&quality=low" frameborder="0" allow="autoplay; fullscreen"></iframe>
         <div class="overlay">
             <div class="buttons">
                 <button onclick="unmuteVideo()">Unmute</button>
@@ -57,13 +57,12 @@
 
     <script>
         function unmuteVideo() {
-            const iframe = document.querySelector('iframe');
-            const iframeSrc = iframe.src;
-            iframe.src = iframeSrc.replace('mute=1', 'mute=0');
+            const iframe = document.getElementById('videoIframe').contentWindow;
+            iframe.postMessage('unmute', '*');
         }
 
         function fullscreenVideo() {
-            const iframe = document.querySelector('iframe');
+            const iframe = document.getElementById('videoIframe');
             if (iframe.requestFullscreen) {
                 iframe.requestFullscreen();
             } else if (iframe.mozRequestFullScreen) { // Firefox
