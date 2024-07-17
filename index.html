@@ -22,10 +22,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none; /* Allow clicks to pass through to iframe */
+            pointer-events: none;
         }
         .buttons {
             position: absolute;
@@ -33,7 +30,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
-            pointer-events: auto; /* Enable interaction with buttons */
+            pointer-events: auto;
         }
         .buttons button {
             margin: 0 5px;
@@ -55,12 +52,9 @@
     <script>
         function unmuteVideo() {
             const iframe = document.getElementById('videoIframe');
-            const iframeSrc = iframe.src;
-            if (iframeSrc.includes('mute=1')) {
-                iframe.src = iframeSrc.replace('mute=1', 'mute=0');
-            } else {
-                iframe.src = iframeSrc + '&mute=0';
-            }
+            const currentSrc = iframe.src;
+            const newSrc = currentSrc.replace('mute=1', 'mute=0');
+            iframe.src = newSrc;  // This will reload the iframe
         }
 
         function fullscreenVideo() {
