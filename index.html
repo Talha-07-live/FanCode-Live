@@ -17,27 +17,8 @@
             border: none;
         }
     </style>
-    <script>
-        // Block pop-ups
-        window.open = function() { return null; };
-        window.alert = function() { return null; };
-        window.confirm = function() { return null; };
-        window.prompt = function() { return null; };
-
-        // Block ads by removing iframes and objects from the page
-        function removeAds() {
-            const adSelectors = ['iframe', 'object', 'embed', 'div[class*="ad"]', 'div[id*="ad"]'];
-            adSelectors.forEach(selector => {
-                const elements = document.querySelectorAll(selector);
-                elements.forEach(el => el.remove());
-            });
-        }
-
-        // Call the removeAds function periodically
-        setInterval(removeAds, 3000);
-    </script>
 </head>
 <body>
-    <iframe src="https://talha-07-live.github.io/App_Home_Page/" sandbox="allow-scripts allow-same-origin"></iframe>
+    <iframe src="https://talha-07-live.github.io/App_Home_Page/" frameborder="0"></iframe>
 </body>
 </html>
