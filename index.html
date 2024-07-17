@@ -52,8 +52,11 @@
     <script>
         function unmuteVideo() {
             const iframe = document.getElementById('videoIframe');
-            const currentSrc = iframe.src;
-            const newSrc = currentSrc.replace('mute=1', 'mute=0');
+            // Reload iframe with mute=0 to unmute the video
+            let newSrc = iframe.src.replace('mute=1', 'mute=0');
+            if (!newSrc.includes('mute=0')) {
+                newSrc += '&mute=0';
+            }
             iframe.src = newSrc;  // This will reload the iframe
         }
 
