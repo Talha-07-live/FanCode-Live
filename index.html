@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Embed with Controls</title>
+    <title>Video Embed with Fullscreen</title>
     <style>
         .video-container {
             position: relative;
@@ -21,7 +21,6 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
-            pointer-events: auto;
         }
         .buttons button {
             margin: 0 5px;
@@ -34,25 +33,23 @@
     <div class="video-container">
         <iframe id="videoIframe" src="https://en.gdplayertv.to/embed/astro-cricket/?embed=1&autoplay=1&mute=1&quality=low" frameborder="0" allow="autoplay; fullscreen"></iframe>
         <div class="buttons">
-            <button onclick="sendMessageToIframe('unmute')">Unmute</button>
-            <button onclick="sendMessageToIframe('fullscreen')">Fullscreen</button>
+            <button onclick="fullscreenVideo()">Fullscreen</button>
         </div>
     </div>
 
     <script>
-        function sendMessageToIframe(action) {
+        function fullscreenVideo() {
             const iframe = document.getElementById('videoIframe');
-            iframe.contentWindow.postMessage(action, '*');
-        }
-
-        window.addEventListener('message', function(event) {
-            if (event.origin !== 'https://en.gdplayertv.to') {
-                return; // Ignore messages from unknown origins
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
             }
-
-            // Handle responses if needed
-            console.log('Message from iframe:', event.data);
-        });
+        }
     </script>
 </body>
 </html>
