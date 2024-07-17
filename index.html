@@ -34,31 +34,25 @@
     <div class="video-container">
         <iframe id="videoIframe" src="https://en.gdplayertv.to/embed/astro-cricket/?embed=1&autoplay=1&mute=1&quality=low" frameborder="0" allow="autoplay; fullscreen"></iframe>
         <div class="buttons">
-            <button onclick="unmuteVideo()">Unmute</button>
-            <button onclick="fullscreenVideo()">Fullscreen</button>
+            <button onclick="sendMessageToIframe('unmute')">Unmute</button>
+            <button onclick="sendMessageToIframe('fullscreen')">Fullscreen</button>
         </div>
     </div>
 
     <script>
-        function unmuteVideo() {
+        function sendMessageToIframe(action) {
             const iframe = document.getElementById('videoIframe');
-            const currentSrc = iframe.src;
-            const newSrc = currentSrc.includes('mute=1') ? currentSrc.replace('mute=1', 'mute=0') : currentSrc + '&mute=0';
-            iframe.src = newSrc;
+            iframe.contentWindow.postMessage(action, '*');
         }
 
-        function fullscreenVideo() {
-            const iframe = document.getElementById('videoIframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) { // Firefox
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) { // IE/Edge
-                iframe.msRequestFullscreen();
+        window.addEventListener('message', function(event) {
+            if (event.origin !== 'https://en.gdplayertv.to') {
+                return; // Ignore messages from unknown origins
             }
-        }
+
+            // Handle responses if needed
+            console.log('Message from iframe:', event.data);
+        });
     </script>
 </body>
 </html>
