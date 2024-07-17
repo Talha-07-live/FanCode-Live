@@ -18,6 +18,13 @@
         }
     </style>
     <script>
+        // Block new windows and tabs by overriding window.open
+        window.open = function() {
+            console.log('Blocked an attempt to open a new window or tab.');
+            return null;
+        };
+
+        // Monitor the iframe for load and try to override its window.open as well
         function blockIframePopups() {
             const iframe = document.querySelector('iframe');
             if (iframe) {
@@ -30,8 +37,13 @@
                             return null;
                         };
 
-                        // Block clicking on links with target="_blank" within the iframe
-                        const iframeDocument = iframe.contentDocument || iframeWindow.document;
+                        // Override target="_blank" within the iframe
+                        const links = iframeWindow.document.getElementsByTagName('a');
+                        for (let i = 0; i < links.length; i++) {
+                            links[i].target = '_self';
+                        }
+
+                        // Monitor for dynamically added links
                         const observer = new MutationObserver(function(mutations) {
                             mutations.forEach(function(mutation) {
                                 if (mutation.addedNodes) {
@@ -48,18 +60,7 @@
                             });
                         });
 
-                        observer.observe(iframeDocument, { childList: true, subtree: true });
-
-                        const links = iframeDocument.getElementsByTagName('a');
-                        for (let i = 0; i < links.length; i++) {
-                            if (links[i].target === '_blank') {
-                                links[i].target = '_self';
-                                links[i].addEventListener('click', function(e) {
-                                    e.preventDefault();
-                                    console.log('Blocked an attempt to open a link in a new tab.');
-                                });
-                            }
-                        }
+                        observer.observe(iframeWindow.document, { childList: true, subtree: true });
                     }
                 };
             }
@@ -69,6 +70,6 @@
     </script>
 </head>
 <body>
-    <iframe src="https://talha-07-live.github.io/Channel-1/" sandbox="allow-scripts allow-same-origin"></iframe>
+    <iframe src="https://talha-07-live.github.io/Channel-1/" sandbox="allow-scripts allow-same-origin allow-popups-to-escape-sandbox"></iframe>
 </body>
 </html>
