@@ -18,11 +18,42 @@
         }
     </style>
     <script>
-        // Block new windows and tabs
+        // Block new windows and tabs by overriding window.open
         window.open = function() {
             console.log('Blocked an attempt to open a new window or tab.');
             return null;
         };
+
+        // Also block context menu and mouse events that can trigger new windows/tabs
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            console.log('Blocked context menu.');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.target === '_blank') {
+                e.preventDefault();
+                console.log('Blocked an attempt to open a link in a new tab.');
+            }
+        });
+
+        // Monitor the iframe for load and try to override its window.open as well
+        function blockIframePopups() {
+            const iframe = document.querySelector('iframe');
+            if (iframe) {
+                iframe.onload = function() {
+                    const iframeWindow = iframe.contentWindow;
+                    if (iframeWindow) {
+                        iframeWindow.open = function() {
+                            console.log('Blocked an attempt to open a new window or tab from iframe.');
+                            return null;
+                        };
+                    }
+                };
+            }
+        }
+
+        window.onload = blockIframePopups;
     </script>
 </head>
 <body>
