@@ -24,17 +24,30 @@
             return null;
         };
 
-        // Monitor the iframe for load and try to override its window.open as well
+        // Function to block new windows/tabs within the iframe
         function blockIframePopups() {
             const iframe = document.querySelector('iframe');
             if (iframe) {
                 iframe.onload = function() {
                     const iframeWindow = iframe.contentWindow;
                     if (iframeWindow) {
+                        // Override window.open within the iframe
                         iframeWindow.open = function() {
                             console.log('Blocked an attempt to open a new window or tab from iframe.');
                             return null;
                         };
+
+                        // Block clicking on links with target="_blank" within the iframe
+                        const iframeDocument = iframe.contentDocument || iframeWindow.document;
+                        const links = iframeDocument.getElementsByTagName('a');
+                        for (let i = 0; i < links.length; i++) {
+                            links[i].addEventListener('click', function(e) {
+                                if (e.target.target === '_blank') {
+                                    e.preventDefault();
+                                    console.log('Blocked an attempt to open a link in a new tab.');
+                                }
+                            });
+                        }
                     }
                 };
             }
