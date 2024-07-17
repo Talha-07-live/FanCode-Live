@@ -15,22 +15,12 @@
             width: 100%;
             height: 450px;
         }
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0);
-            pointer-events: none;
-        }
         .buttons {
             position: absolute;
             bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
-            pointer-events: auto;
         }
         .buttons button {
             margin: 0 5px;
@@ -42,7 +32,6 @@
 <body>
     <div class="video-container">
         <iframe id="videoIframe" src="https://en.gdplayertv.to/embed/astro-cricket/?embed=1&autoplay=1&mute=1&quality=low" frameborder="0" allow="autoplay; fullscreen"></iframe>
-        <div class="overlay"></div>
         <div class="buttons">
             <button onclick="unmuteVideo()">Unmute</button>
             <button onclick="fullscreenVideo()">Fullscreen</button>
@@ -53,8 +42,9 @@
         function unmuteVideo() {
             const iframe = document.getElementById('videoIframe');
             // Reload iframe with mute=0 to unmute the video
-            let newSrc = iframe.src.replace('mute=1', 'mute=0');
-            if (!newSrc.includes('mute=0')) {
+            let currentSrc = iframe.src;
+            let newSrc = currentSrc.replace('mute=1', 'mute=0');
+            if (!currentSrc.includes('mute=1') && !currentSrc.includes('mute=0')) {
                 newSrc += '&mute=0';
             }
             iframe.src = newSrc;  // This will reload the iframe
