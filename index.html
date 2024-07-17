@@ -18,60 +18,27 @@
         }
     </style>
     <script>
-        // Block new windows and tabs by overriding window.open
-        window.open = function() {
-            console.log('Blocked an attempt to open a new window or tab.');
-            return null;
-        };
-
-        function blockIframePopups() {
-            const iframe = document.querySelector('iframe');
-            if (iframe) {
-                iframe.onload = function() {
-                    const iframeWindow = iframe.contentWindow;
-                    if (iframeWindow) {
-                        iframeWindow.open = function() {
-                            console.log('Blocked an attempt to open a new window or tab from iframe.');
-                            return null;
-                        };
-
-                        const observer = new MutationObserver(function(mutations) {
-                            mutations.forEach(function(mutation) {
-                                if (mutation.addedNodes) {
-                                    mutation.addedNodes.forEach(function(node) {
-                                        if (node.tagName === 'A' && node.target === '_blank') {
-                                            node.target = '_self';
-                                            node.addEventListener('click', function(e) {
-                                                e.preventDefault();
-                                                console.log('Blocked an attempt to open a link in a new tab.');
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        });
-
-                        observer.observe(iframeWindow.document, { childList: true, subtree: true });
-
-                        const links = iframeWindow.document.getElementsByTagName('a');
-                        for (let i = 0; i < links.length; i++) {
-                            if (links[i].target === '_blank') {
-                                links[i].target = '_self';
-                                links[i].addEventListener('click', function(e) {
-                                    e.preventDefault();
-                                    console.log('Blocked an attempt to open a link in a new tab.');
-                                });
-                            }
+        // Block specific URLs from opening in new tabs/windows
+        function blockSpecificLinks() {
+            document.addEventListener('DOMContentLoaded', function() {
+                const links = document.querySelectorAll('a');
+                links.forEach(function(link) {
+                    link.addEventListener('click', function(e) {
+                        if (link.href === 'https://zq.shallalflexors.top/' || link.href === 'https://pw.avowsbethorn.top/') {
+                            e.preventDefault();
+                            console.log('Blocked an attempt to open a restricted link in a new tab:', link.href);
                         }
-                    }
-                };
-            }
+                    });
+                });
+            });
         }
-
-        window.onload = blockIframePopups;
     </script>
 </head>
 <body>
-    <iframe src="https://idn.gdplayertv.to/embed/astro-cricket/?embed=1&autoplay=1&mute=1&quality=low" sandbox="allow-scripts allow-same-origin"></iframe>
+    <iframe src="https://talha-07-live.github.io/App_Home_Page/"></iframe>
+
+    <script>
+        blockSpecificLinks();
+    </script>
 </body>
 </html>
