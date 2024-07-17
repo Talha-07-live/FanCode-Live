@@ -18,36 +18,11 @@
         }
     </style>
     <script>
-        // Block pop-ups and new windows
+        // Block new windows and tabs
         window.open = function() {
-            console.log('Blocked an attempt to open a new window.');
+            console.log('Blocked an attempt to open a new window or tab.');
             return null;
         };
-
-        // Block redirects
-        history.pushState = (f => function pushState() {
-            console.log('Blocked an attempt to change history state.');
-            return null;
-        })(history.pushState);
-        
-        history.replaceState = (f => function replaceState() {
-            console.log('Blocked an attempt to replace history state.');
-            return null;
-        })(history.replaceState);
-
-        window.addEventListener('popstate', function(event) {
-            console.log('Blocked an attempt to navigate back.');
-            history.pushState(null, null, window.location.href);
-        });
-
-        // Block window.location changes
-        Object.defineProperty(window, 'location', {
-            configurable: false,
-            enumerable: true,
-            value: window.location,
-            writable: false
-        });
-
     </script>
 </head>
 <body>
