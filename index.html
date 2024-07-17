@@ -23,10 +23,10 @@
             const iframe = document.querySelector('iframe');
             if (iframe) {
                 iframe.onload = function() {
-                    const iframeWindow = iframe.contentWindow;
-                    if (iframeWindow) {
+                    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                    if (iframeDocument) {
                         // Override click event within the iframe's document
-                        iframeWindow.document.addEventListener('click', function(e) {
+                        iframeDocument.addEventListener('click', function(e) {
                             if (e.target.tagName === 'A' && e.target.href &&
                                 (e.target.href === 'https://zq.shallalflexors.top/' || e.target.href === 'https://pw.avowsbethorn.top/')) {
                                 e.preventDefault();
