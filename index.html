@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button with Image Links</title>
+    <title>Talha's Stream</title>
     <style>
         body {
             display: flex;
@@ -14,8 +14,20 @@
             margin: 0;
             font-family: Arial, sans-serif;
         }
-        .button-container {
+        #loading-screen {
             display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: #111;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+        .button-container {
+            display: none; /* Hidden initially */
             flex-direction: column;
             gap: 20px;
             align-items: center;
@@ -53,6 +65,7 @@
             z-index: 1;
         }
         .android-app-button {
+            display: none; /* Hidden initially */
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -60,7 +73,6 @@
             border-radius: 50%; /* Round shape */
             width: 80px; /* Button width */
             height: 80px; /* Button height */
-            display: flex;
             justify-content: center;
             align-items: center;
             text-decoration: none;
@@ -91,22 +103,34 @@
     </style>
 </head>
 <body>
-    <div class="button-container">
-        <a href="https://talha-07-live.github.io/Talha_App_Cricket/" class="button-with-image">
+    <div id="loading-screen">
+        <img src="https://s10.gifyu.com/images/StTRx.gif" alt="Loading GIF">
+    </div>
+    <div class="button-container" id="main-content">
+        <a href="https://t.talhasstream-cricket.000.pe/" class="button-with-image">
             <img src="https://s12.gifyu.com/images/StN9A.gif" alt="Button 1 Image">
             <span>All Types Cricket Match Live</span>
         </a>
-        <a href="https://talha-07-live.github.io/Talha-s_App_Football_1/" class="button-with-image">
+        <a href="https://t.talhasstream-football-1.000.pe/" class="button-with-image">
             <img src="https://s10.gifyu.com/images/StT3e.gif" alt="Button 2 Image">
             <span>Copa America Live</span>
         </a>
-        <a href="https://talha-07-live.github.io/Talha-s_App_Football_2/" class="button-with-image">
+        <a href="https://t.talhasstream-football-2.000.pe/" class="button-with-image">
             <img src="https://s10.gifyu.com/images/StTRx.gif" alt="Button 3 Image">
             <span>UEFA EURO Cup Live</span>
         </a>
     </div>
-    <a href="https://example.com/android-app-link" class="android-app-button" target="_blank">
+    <a href="https://example.com/android-app-link" class="android-app-button" id="android-app-button" target="_blank">
         Android App
     </a>
+
+    <script>
+        // Show the main content after 3 seconds
+        setTimeout(function() {
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'flex';
+            document.getElementById('android-app-button').style.display = 'flex';
+        }, 3000);
+    </script>
 </body>
 </html>
