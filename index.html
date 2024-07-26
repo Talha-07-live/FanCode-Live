@@ -22,9 +22,17 @@
             width: 100vw;
             background-color: #111;
             position: fixed;
-            top: 20;
+            top: 0;
             left: 0;
             z-index: 9999;
+        }
+        #loading-screen img {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -10%);
+            width: 80%; /* Adjust size if needed */
+            height: auto;
         }
         .button-container {
             display: none; /* Hidden initially */
@@ -104,7 +112,7 @@
 </head>
 <body>
     <div id="loading-screen">
-        <img src="https://s12.gifyu.com/images/S5qs3.gif" alt="Loading GIF" style="width: 100%; height: 100%;">
+        <img src="https://s12.gifyu.com/images/S5qs3.gif" alt="Loading GIF">
     </div>
     <div class="button-container" id="main-content">
         <a href="https://t.talhasstream-cricket.000.pe/" class="button-with-image">
@@ -132,7 +140,5 @@
             document.getElementById('android-app-button').style.display = 'flex';
         }, 3000);
     </script>
-</body>
-</html>
 </body>
 </html>
