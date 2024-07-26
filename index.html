@@ -25,14 +25,24 @@
             top: 0;
             left: 0;
             z-index: 9999;
+            flex-direction: column; /* Allows stacking of GIF and image */
         }
-        #loading-screen img {
+        #loading-gif {
             position: absolute;
             top: 10%;
             left: 50%;
             transform: translate(-50%, -25%);
             width: 80%; /* Adjust size if needed */
             height: auto;
+        }
+        #overlay-image {
+            position: absolute;
+            top: 60%; /* Adjust position */
+            left: 50%;
+            transform: translate(-50%, -30%);
+            width: 50%; /* Adjust size */
+            height: auto;
+            z-index: 10000; /* Ensure it appears above the GIF */
         }
         .button-container {
             display: none; /* Hidden initially */
@@ -112,7 +122,8 @@
 </head>
 <body>
     <div id="loading-screen">
-        <img src="https://s12.gifyu.com/images/S5qNY.gif" alt="Loading GIF">
+        <img id="loading-gif" src="https://s12.gifyu.com/images/S5qNY.gif" alt="Loading GIF">
+        <img id="overlay-image" src="https://s10.gifyu.com/images/S5qTI.jpg" alt="Overlay Image">
     </div>
     <div class="button-container" id="main-content">
         <a href="https://t.talhasstream-cricket.000.pe/" class="button-with-image">
@@ -140,5 +151,7 @@
             document.getElementById('android-app-button').style.display = 'flex';
         }, 3000);
     </script>
+</body>
+</html>
 </body>
 </html>
