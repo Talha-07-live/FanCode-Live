@@ -194,7 +194,7 @@
             background-color: #ff6600;
             color: white;
             position: fixed;
-            bottom: 0;
+            bottom: 50px;
             width: 100%;
         }
         .bottom-nav div {
@@ -207,6 +207,27 @@
         .bottom-nav div p {
             margin: 5px 0 0;
             font-size: 12px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -234,7 +255,7 @@
         </div>
         <div class="menu-content">
             <button onclick="navigateTo('home')">Home</button>
-            <button onclick="toggleSubMenu('categories')">Categories</button>
+            <button onclick="toggleSubMenu('categoriesMenu')">Categories</button>
             <div id="categoriesMenu" class="sub-menu">
                 <button onclick="navigateTo('male')">Male</button>
                 <button onclick="navigateTo('female')">Female</button>
@@ -302,6 +323,13 @@
             <i class="fas fa-phone"></i>
             <p>Help</p>
         </div>
+    </div>
+
+    <div class="footer">
+        <a href="https://facebook.com/yourpage" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://youtube.com/yourchannel" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="tel:+1234567890"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
 
     <script>
