@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,23 +53,35 @@
             color: #333;
             margin-bottom: 20px;
         }
-        .products, .categories-items {
+        .product-slider {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
             display: flex;
             justify-content: center;
-            gap: 20px;
         }
-        .product, .category-item {
+        .product {
             background-color: white;
             border: 1px solid #ddd;
             padding: 15px;
             width: 150px;
             text-align: center;
         }
-        .product img, .category-item img {
+        .product img {
             width: 100%;
             height: auto;
         }
-        .product h3, .category-item h3 {
+        .product h3 {
             font-size: 16px;
             margin: 10px 0;
         }
@@ -81,16 +94,6 @@
             color: #ff6600;
             font-size: 18px;
             margin-bottom: 10px;
-        }
-        .product button {
-            background-color: #ff6600;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .product button:hover {
-            background-color: #e65c00;
         }
         .bottom-nav {
             display: flex;
@@ -119,14 +122,14 @@
 
     <div class="header">
         <div class="menu-icon">
-            <i class="fas fa-bars"></i> <!-- Hamburger menu icon -->
+            <i class="fas fa-bars"></i>
         </div>
         <div class="logo">LiVE SHOPPING</div>
         <div class="icons">
-            <i class="fas fa-search"></i> <!-- Search icon -->
-            <i class="fas fa-shopping-cart"></i> <!-- Cart icon -->
-            <div class="cart-count">0</div> <!-- Cart item count -->
-            <i class="fas fa-chevron-down"></i> <!-- Dropdown icon for tracking products -->
+            <i class="fas fa-search"></i>
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-count">0</div>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </div>
 
@@ -137,22 +140,26 @@
 
     <div class="new-arrivals">
         <h2>New Arrivals</h2>
-        <div class="products">
-            <div class="product">
-                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
-                <h3>Blue Shirt</h3>
-                <p>৳1,490</p>
-                <div class="price">৳950</div>
-                <button>Order Now</button>
+        <div class="product-slider">
+            <div class="slides">
+                <div class="slide">
+                    <div class="product" onclick="window.location.href='#'">
+                        <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
+                        <h3>Product 1</h3>
+                        <p>৳1,490</p>
+                        <div class="price">৳950</div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="product" onclick="window.location.href='#'">
+                        <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
+                        <h3>Product 2</h3>
+                        <p>৳990</p>
+                        <div class="price">৳750</div>
+                    </div>
+                </div>
+                <!-- Add more product slides as needed -->
             </div>
-            <div class="product">
-                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
-                <h3>Orange Polo</h3>
-                <p>৳990</p>
-                <div class="price">৳750</div>
-                <button>Order Now</button>
-            </div>
-            <!-- More products can be added here -->
         </div>
     </div>
 
@@ -194,5 +201,22 @@
         </div>
     </div>
 
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            const slidesContainer = document.querySelector('.slides');
+            slidesContainer.style.transform = `translateX(${-index * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 5000); // Change every 5 seconds
+    </script>
 </body>
 </html>
