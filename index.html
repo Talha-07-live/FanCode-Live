@@ -19,6 +19,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         .header .menu-icon, .header .icons i {
             font-size: 24px;
@@ -68,10 +69,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         .menu-overlay .menu-header .close-btn {
             font-size: 24px;
             cursor: pointer;
+        }
+        .menu-overlay .menu-header .title {
+            font-size: 20px;
         }
         .menu-overlay .menu-content {
             padding: 10px;
@@ -107,33 +112,27 @@
         .product-slider {
             position: relative;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             overflow: hidden;
-            padding: 20px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            width: 100%;
         }
         .slide {
-            min-width: 33.33%;
+            min-width: 100%;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
-            padding: 0 10px;
         }
         .product {
             background-color: white;
             border: 1px solid #ddd;
-            padding: 20px;
+            padding: 15px;
+            width: 200px;
             text-align: center;
-            width: 100%;
-            max-width: 300px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            cursor: pointer;
         }
         .product img {
             width: 100%;
@@ -152,9 +151,6 @@
             color: #ff6600;
             font-size: 20px;
             margin-bottom: 10px;
-        }
-        .product:hover {
-            transform: scale(1.05);
         }
         .categories {
             padding: 20px;
@@ -237,20 +233,15 @@
             </div>
         </div>
         <div class="menu-content">
-            <button onclick="showSection('home')">Home</button>
-            <button onclick="showSection('categories')">Categories</button>
+            <button onclick="navigateTo('home')">Home</button>
+            <button onclick="toggleSubMenu('categories')">Categories</button>
             <div id="categoriesMenu" class="sub-menu">
-                <button onclick="showSection('male')">Male</button>
-                <button onclick="showSection('female')">Female</button>
+                <button onclick="navigateTo('male')">Male</button>
+                <button onclick="navigateTo('female')">Female</button>
             </div>
-            <button onclick="showSection('popular')">Popular</button>
-            <button onclick="showSection('help')">Help Center</button>
+            <button onclick="navigateTo('popular')">Popular</button>
+            <button onclick="navigateTo('help')">Help Center</button>
         </div>
-    </div>
-
-    <div class="banner">
-        <h1>New Arrival Fashion Sale</h1>
-        <p>Get the latest fashion trends at amazing prices!</p>
     </div>
 
     <div class="product-slider">
@@ -271,7 +262,7 @@
                     <div class="price">৳750</div>
                 </div>
             </div>
-            <!-- Add more product slides as needed -->
+            <!-- Add more slides as needed, up to 10 products -->
         </div>
     </div>
 
@@ -295,19 +286,19 @@
     </div>
 
     <div class="bottom-nav">
-        <div onclick="showSection('home')">
+        <div onclick="navigateTo('home')">
             <i class="fas fa-home"></i>
             <p>Home</p>
         </div>
-        <div onclick="showSection('categories')">
+        <div onclick="navigateTo('categories')">
             <i class="fas fa-th-large"></i>
             <p>Categories</p>
         </div>
-        <div onclick="showSection('popular')">
+        <div onclick="navigateTo('popular')">
             <i class="fas fa-box"></i>
             <p>Popular</p>
         </div>
-        <div onclick="showSection('help')">
+        <div onclick="navigateTo('help')">
             <i class="fas fa-phone"></i>
             <p>Help</p>
         </div>
@@ -319,21 +310,24 @@
             menu.classList.toggle('active');
         }
 
-        function showSection(section) {
-            document.querySelectorAll('.sub-menu').forEach(menu => menu.style.display = 'none');
-            document.querySelectorAll('.menu-content button').forEach(button => button.style.display = 'block');
-            
-            if (section === 'categories') {
-                document.getElementById('categoriesMenu').style.display = 'block';
-            } else if (section === 'home') {
-                window.location.href = '/'; // Redirect to home page
-            } else if (section === 'popular') {
-                // Add logic to display popular section
-            } else if (section === 'help') {
-                // Add logic to display help center details
-            }
+        function toggleSubMenu(id) {
+            const subMenu = document.getElementById(id);
+            subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
+        }
 
-            toggleMenu(); // Close menu after selection
+        function navigateTo(section) {
+            if (section === 'home') {
+                window.location.href = 'index.html'; // Change to your home page URL
+            } else if (section === 'male') {
+                window.location.href = 'male.html'; // Change to your male category URL
+            } else if (section === 'female') {
+                window.location.href = 'female.html'; // Change to your female category URL
+            } else if (section === 'popular') {
+                window.location.href = 'popular.html'; // Change to your popular page URL
+            } else if (section === 'help') {
+                window.location.href = 'help.html'; // Change to your help page URL
+            }
+            toggleMenu();
         }
 
         let currentSlide = 0;
@@ -342,7 +336,7 @@
 
         function showSlide(index) {
             const slidesContainer = document.querySelector('.slides');
-            slidesContainer.style.transform = `translateX(${-index * 33.33}%)`; // Adjust for 3 slides visible
+            slidesContainer.style.transform = `translateX(${-index * 100}%)`;
         }
 
         function nextSlide() {
