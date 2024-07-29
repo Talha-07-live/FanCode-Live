@@ -6,6 +6,7 @@
     <title>Shopping Website</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* General styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -19,7 +20,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
         }
         .header .menu-icon, .header .icons i {
             font-size: 24px;
@@ -69,14 +69,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
         }
         .menu-overlay .menu-header .close-btn {
             font-size: 24px;
             cursor: pointer;
-        }
-        .menu-overlay .menu-header .title {
-            font-size: 20px;
         }
         .menu-overlay .menu-content {
             padding: 10px;
@@ -130,7 +126,7 @@
             background-color: white;
             border: 1px solid #ddd;
             padding: 15px;
-            width: 200px; /* Adjust the width as needed */
+            width: 200px;
             text-align: center;
             cursor: pointer;
         }
@@ -246,7 +242,6 @@
 
     <div class="product-slider">
         <div class="slides">
-            <!-- Replace the href with your product links -->
             <div class="slide">
                 <div class="product" onclick="window.open('https://example.com/product1', '_blank')">
                     <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
@@ -263,7 +258,7 @@
                     <div class="price">৳750</div>
                 </div>
             </div>
-            <!-- Add more slides as needed, up to 10 products -->
+            <!-- Add more slides as needed -->
         </div>
     </div>
 
@@ -312,18 +307,22 @@
         }
 
         function showSection(section) {
+            // Hide all sub-menus
             document.querySelectorAll('.sub-menu').forEach(menu => menu.style.display = 'none');
+            // Show/hide sections based on clicked button
             document.querySelectorAll('.menu-content button').forEach(button => button.style.display = 'block');
             
             if (section === 'categories') {
                 document.getElementById('categoriesMenu').style.display = 'block';
+            } else if (section === 'home') {
+                window.location.href = '/'; // Redirect to home page
             } else if (section === 'popular') {
-                document.getElementById('popularMenu').style.display = 'block';
+                // Add logic to display popular section
             } else if (section === 'help') {
-                document.getElementById('helpMenu').style.display = 'block';
+                // Add logic to display help center details
             }
-            
-            // Hide the menu overlay after selecting a section
+
+            // Close menu after selection
             toggleMenu();
         }
 
