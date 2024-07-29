@@ -19,17 +19,24 @@
             justify-content: space-between;
             align-items: center;
         }
+        .header .menu-icon, .header .icons {
+            display: flex;
+            align-items: center;
+        }
+        .header .menu-icon i, .header .icons i {
+            font-size: 24px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
         .header .logo {
             font-size: 24px;
             font-weight: bold;
         }
-        .header .icons {
-            display: flex;
-            gap: 15px;
-        }
-        .header .icons i {
-            font-size: 20px;
-            cursor: pointer;
+        .header .cart-count {
+            background-color: black;
+            border-radius: 50%;
+            padding: 5px 10px;
+            margin-left: -10px;
         }
         .banner {
             background-color: #333;
@@ -111,11 +118,15 @@
 <body>
 
     <div class="header">
-        <div class="logo">LiVE Shopping</div>
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">LiVE SHOPPING</div>
         <div class="icons">
             <i class="fas fa-search"></i>
             <i class="fas fa-shopping-cart"></i>
-            <i class="fas fa-user"></i>
+            <div class="cart-count">0</div>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </div>
 
