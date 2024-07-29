@@ -6,7 +6,6 @@
     <title>Shopping Website</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* General styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -108,27 +107,33 @@
         .product-slider {
             position: relative;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             overflow: hidden;
+            padding: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
+            width: 100%;
         }
         .slide {
-            min-width: 100%;
+            min-width: 33.33%;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
+            padding: 0 10px;
         }
         .product {
             background-color: white;
             border: 1px solid #ddd;
-            padding: 15px;
-            width: 200px;
+            padding: 20px;
             text-align: center;
-            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
         .product img {
             width: 100%;
@@ -147,6 +152,9 @@
             color: #ff6600;
             font-size: 20px;
             margin-bottom: 10px;
+        }
+        .product:hover {
+            transform: scale(1.05);
         }
         .categories {
             padding: 20px;
@@ -240,6 +248,11 @@
         </div>
     </div>
 
+    <div class="banner">
+        <h1>New Arrival Fashion Sale</h1>
+        <p>Get the latest fashion trends at amazing prices!</p>
+    </div>
+
     <div class="product-slider">
         <div class="slides">
             <div class="slide">
@@ -258,7 +271,7 @@
                     <div class="price">৳750</div>
                 </div>
             </div>
-            <!-- Add more slides as needed -->
+            <!-- Add more product slides as needed -->
         </div>
     </div>
 
@@ -307,9 +320,7 @@
         }
 
         function showSection(section) {
-            // Hide all sub-menus
             document.querySelectorAll('.sub-menu').forEach(menu => menu.style.display = 'none');
-            // Show/hide sections based on clicked button
             document.querySelectorAll('.menu-content button').forEach(button => button.style.display = 'block');
             
             if (section === 'categories') {
@@ -322,8 +333,7 @@
                 // Add logic to display help center details
             }
 
-            // Close menu after selection
-            toggleMenu();
+            toggleMenu(); // Close menu after selection
         }
 
         let currentSlide = 0;
@@ -332,7 +342,7 @@
 
         function showSlide(index) {
             const slidesContainer = document.querySelector('.slides');
-            slidesContainer.style.transform = `translateX(${-index * 100}%)`;
+            slidesContainer.style.transform = `translateX(${-index * 33.33}%)`; // Adjust for 3 slides visible
         }
 
         function nextSlide() {
