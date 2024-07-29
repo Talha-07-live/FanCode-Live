@@ -109,18 +109,10 @@
             text-align: center;
             padding: 50px 20px;
         }
-        .new-arrivals, .categories {
-            padding: 20px;
-            text-align: center;
-        }
-        .new-arrivals h2, .categories h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
         .product-slider {
             position: relative;
             width: 100%;
-            max-width: 600px;
+            max-width: 1000px;
             margin: 0 auto;
             overflow: hidden;
         }
@@ -138,26 +130,35 @@
             background-color: white;
             border: 1px solid #ddd;
             padding: 15px;
-            width: 150px;
+            width: 200px; /* Adjust the width as needed */
             text-align: center;
+            cursor: pointer;
         }
         .product img {
             width: 100%;
             height: auto;
         }
         .product h3 {
-            font-size: 16px;
+            font-size: 18px;
             margin: 10px 0;
         }
         .product p {
-            font-size: 14px;
+            font-size: 16px;
             color: #999;
             text-decoration: line-through;
         }
         .product .price {
             color: #ff6600;
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 10px;
+        }
+        .categories {
+            padding: 20px;
+            text-align: center;
+        }
+        .categories h2 {
+            color: #333;
+            margin-bottom: 20px;
         }
         .categories-items {
             display: flex;
@@ -234,50 +235,35 @@
         <div class="menu-content">
             <button onclick="showSection('home')">Home</button>
             <button onclick="showSection('categories')">Categories</button>
-            <div class="sub-menu" id="categoriesMenu">
+            <div id="categoriesMenu" class="sub-menu">
                 <button onclick="showSection('male')">Male</button>
                 <button onclick="showSection('female')">Female</button>
             </div>
             <button onclick="showSection('popular')">Popular</button>
-            <div class="sub-menu" id="popularMenu">
-                <button onclick="showSection('product')">Product</button>
-            </div>
             <button onclick="showSection('help')">Help Center</button>
-            <div class="sub-menu" id="helpMenu">
-                <p>Phone: +1234567890</p>
-                <p>Email: contact@example.com</p>
-                <p><a href="https://facebook.com/example" target="_blank">Facebook</a></p>
-            </div>
         </div>
     </div>
 
-    <div class="banner">
-        <h1>New Arrival Fashion Sale</h1>
-        <p>Get the latest fashion trends at amazing prices!</p>
-    </div>
-
-    <div class="new-arrivals">
-        <h2>New Arrivals</h2>
-        <div class="product-slider">
-            <div class="slides">
-                <div class="slide">
-                    <div class="product" onclick="window.location.href='#'">
-                        <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
-                        <h3>Product 1</h3>
-                        <p>৳1,490</p>
-                        <div class="price">৳950</div>
-                    </div>
+    <div class="product-slider">
+        <div class="slides">
+            <!-- Replace the href with your product links -->
+            <div class="slide">
+                <div class="product" onclick="window.open('https://example.com/product1', '_blank')">
+                    <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
+                    <h3>Product 1</h3>
+                    <p>৳1,490</p>
+                    <div class="price">৳950</div>
                 </div>
-                <div class="slide">
-                    <div class="product" onclick="window.location.href='#'">
-                        <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
-                        <h3>Product 2</h3>
-                        <p>৳990</p>
-                        <div class="price">৳750</div>
-                    </div>
-                </div>
-                <!-- Add more product slides as needed -->
             </div>
+            <div class="slide">
+                <div class="product" onclick="window.open('https://example.com/product2', '_blank')">
+                    <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
+                    <h3>Product 2</h3>
+                    <p>৳990</p>
+                    <div class="price">৳750</div>
+                </div>
+            </div>
+            <!-- Add more slides as needed, up to 10 products -->
         </div>
     </div>
 
