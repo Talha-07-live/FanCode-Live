@@ -19,6 +19,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         .header .menu-icon, .header .icons i {
             font-size: 24px;
@@ -42,6 +43,65 @@
             border-radius: 50%;
             padding: 5px 10px;
             margin-left: -10px;
+        }
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+        }
+        .menu-overlay.active {
+            display: block;
+            transform: translateX(0);
+        }
+        .menu-overlay .menu-header {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .menu-overlay .menu-header .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .menu-overlay .menu-header .title {
+            font-size: 20px;
+        }
+        .menu-overlay .menu-content {
+            padding: 10px;
+        }
+        .menu-overlay .menu-content button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            margin: 10px 0;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .menu-overlay .menu-content button:hover {
+            background-color: #f4f4f4;
+        }
+        .menu-overlay .sub-menu {
+            display: none;
+            padding-left: 20px;
+        }
+        .menu-overlay .sub-menu button {
+            margin: 5px 0;
         }
         .banner {
             background-color: #333;
@@ -152,7 +212,7 @@
 <body>
 
     <div class="header">
-        <div class="menu-icon">
+        <div class="menu-icon" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">LiVE SHOPPING</div>
@@ -161,6 +221,33 @@
             <i class="fas fa-shopping-cart"></i>
             <div class="cart-count">0</div>
             <i class="fas fa-truck"></i>
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-header">
+            <div class="title">Menu</div>
+            <div class="close-btn" onclick="toggleMenu()">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="menu-content">
+            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('categories')">Categories</button>
+            <div class="sub-menu" id="categoriesMenu">
+                <button onclick="showSection('male')">Male</button>
+                <button onclick="showSection('female')">Female</button>
+            </div>
+            <button onclick="showSection('popular')">Popular</button>
+            <div class="sub-menu" id="popularMenu">
+                <button onclick="showSection('product')">Product</button>
+            </div>
+            <button onclick="showSection('help')">Help Center</button>
+            <div class="sub-menu" id="helpMenu">
+                <p>Phone: +1234567890</p>
+                <p>Email: contact@example.com</p>
+                <p><a href="https://facebook.com/example" target="_blank">Facebook</a></p>
+            </div>
         </div>
     </div>
 
@@ -214,25 +301,46 @@
     </div>
 
     <div class="bottom-nav">
-        <div>
+        <div onclick="showSection('home')">
             <i class="fas fa-home"></i>
             <p>Home</p>
         </div>
-        <div>
+        <div onclick="showSection('categories')">
             <i class="fas fa-th-large"></i>
             <p>Categories</p>
         </div>
-        <div>
+        <div onclick="showSection('popular')">
             <i class="fas fa-box"></i>
-            <p>All Product</p>
+            <p>Popular</p>
         </div>
-        <div>
+        <div onclick="showSection('help')">
             <i class="fas fa-phone"></i>
-            <p>Phone</p>
+            <p>Help</p>
         </div>
     </div>
 
     <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menuOverlay');
+            menu.classList.toggle('active');
+        }
+
+        function showSection(section) {
+            document.querySelectorAll('.sub-menu').forEach(menu => menu.style.display = 'none');
+            document.querySelectorAll('.menu-content button').forEach(button => button.style.display = 'block');
+            
+            if (section === 'categories') {
+                document.getElementById('categoriesMenu').style.display = 'block';
+            } else if (section === 'popular') {
+                document.getElementById('popularMenu').style.display = 'block';
+            } else if (section === 'help') {
+                document.getElementById('helpMenu').style.display = 'block';
+            }
+            
+            // Hide the menu overlay after selecting a section
+            toggleMenu();
+        }
+
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
