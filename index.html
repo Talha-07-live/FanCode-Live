@@ -20,18 +20,28 @@
             justify-content: space-between;
             align-items: center;
         }
-        .header .menu-icon, .header .icons {
+        .header .menu-icon {
             display: flex;
             align-items: center;
         }
-        .header .menu-icon i, .header .icons i {
+        .header .menu-icon i {
             font-size: 24px;
             cursor: pointer;
-            margin: 0 10px;
         }
         .header .logo {
             font-size: 24px;
             font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .header .icons {
+            display: flex;
+            align-items: center;
+        }
+        .header .icons i {
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 15px;
         }
         .header .cart-count {
             background-color: black;
@@ -129,7 +139,7 @@
             <i class="fas fa-search"></i>
             <i class="fas fa-shopping-cart"></i>
             <div class="cart-count">0</div>
-            <i class="fas fa-chevron-down"></i>
+            <i class="fas fa-truck"></i>
         </div>
     </div>
 
