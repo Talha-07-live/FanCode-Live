@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .header .menu-icon, .header .icons i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .header .icons {
+            display: flex;
+            align-items: center;
+        }
+        .header .icons i {
+            margin-left: 15px;
+        }
+        .header .cart-count {
+            background-color: black;
+            border-radius: 50%;
+            padding: 5px 10px;
+            margin-left: -10px;
+        }
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+        }
+        .menu-overlay.active {
+            display: block;
+            transform: translateX(0);
+        }
+        .menu-overlay .menu-header {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .menu-overlay .menu-header .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .menu-overlay .menu-header .title {
+            font-size: 20px;
+        }
+        .menu-overlay .menu-content {
+            padding: 10px;
+        }
+        .menu-overlay .menu-content button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            margin: 10px 0;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .menu-overlay .menu-content button:hover {
+            background-color: #f4f4f4;
+        }
+        .menu-overlay .sub-menu {
+            display: none;
+            padding-left: 20px;
+        }
+        .menu-overlay .sub-menu button {
+            margin: 5px 0;
+        }
+        .banner {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .product-slider {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+        .product h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .product p {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+        }
+        .product .price {
+            color: #ff6600;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .categories {
+            padding: 20px;
+            text-align: center;
+        }
+        .categories h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .categories-items {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .category-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            width: 100px;
+            text-align: center;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+        .category-item:hover {
+            transform: scale(1.05);
+        }
+        .category-item img {
+            width: 60px;
+            height: auto;
+        }
+        .category-item h3 {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #ff6600;
+            color: white;
+            position: fixed;
+            bottom: 50px;
+            width: 100%;
+        }
+        .bottom-nav div {
+            text-align: center;
+            cursor: pointer;
+        }
+        .bottom-nav div i {
+            font-size: 20px;
+        }
+        .bottom-nav div p {
+            margin: 5px 0 0;
+            font-size: 12px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">LiVE SHOPPING</div>
+        <div class="icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-count">0</div>
+            <i class="fas fa-truck"></i>
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-header">
+            <div class="title">Menu</div>
+            <div class="close-btn" onclick="toggleMenu()">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="menu-content">
+            <button onclick="navigateTo('home')">Home</button>
+            <button onclick="toggleSubMenu('categoriesMenu')">Categories</button>
+            <div id="categoriesMenu" class="sub-menu">
+                <button onclick="navigateTo('male')">Male</button>
+                <button onclick="navigateTo('female')">Female</button>
+            </div>
+            <button onclick="navigateTo('popular')">Popular</button>
+            <button onclick="navigateTo('help')">Help Center</button>
+        </div>
+    </div>
+
+    <div class="product-slider">
+        <div class="slides">
+            <div class="slide">
+                <div class="product" onclick="window.open('https://example.com/product1', '_blank')">
+                    <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
+                    <h3>Product 1</h3>
+                    <p>৳1,490</p>
+                    <div class="price">৳950</div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="product" onclick="window.open('https://example.com/product2', '_blank')">
+                    <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
+                    <h3>Product 2</h3>
+                    <p>৳990</p>
+                    <div class="price">৳750</div>
+                </div>
+            </div>
+            <!-- Add more slides as needed, up to 10 products -->
+        </div>
+    </div>
+
+    <div class="categories">
+        <h2>Categories</h2>
+        <div class="categories-items">
+            <div class="category-item">
+                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Shirts">
+                <h3>Shirt</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Pants">
+                <h3>Pant</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Punjabi">
+                <h3>Panjabi</h3>
+            </div>
+            <!-- More categories can be added here -->
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div onclick="navigateTo('home')">
+            <i class="fas fa-home"></i>
+            <p>Home</p>
+        </div>
+        <div onclick="navigateTo('categories')">
+            <i class="fas fa-th-large"></i>
+            <p>Categories</p>
+        </div>
+        <div onclick="navigateTo('popular')">
+            <i class="fas fa-box"></i>
+            <p>Popular</p>
+        </div>
+        <div onclick="navigateTo('help')">
+            <i class="fas fa-phone"></i>
+            <p>Help</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="https://facebook.com/yourpage" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://youtube.com/yourchannel" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="tel:+1234567890"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menuOverlay');
+            menu.classList.toggle('active');
+        }
+
+        function toggleSubMenu(id) {
+            const subMenu = document.getElementById(id);
+            subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function navigateTo(section) {
+            if (section === 'home') {
+                window.location.href = 'index.html'; // Change to your home page URL
+            } else if (section === 'male') {
+                window.location.href = 'male.html'; // Change to your male category URL
+            } else if (section === 'female') {
+                window.location.href = 'female.html'; // Change to your female category URL
+            } else if (section === 'popular') {
+                window.location.href = 'popular.html'; // Change to your popular page URL
+            } else if (section === 'help') {
+                window.location.href = 'help.html'; // Change to your help page URL
+            }
+            toggleMenu();
+        }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            const slidesContainer = document.querySelector('.slides');
+            slidesContainer.style.transform = `translateX(${-index * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 5000); // Change every 5 seconds
+    </script>
+</body>
+</html>
