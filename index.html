@@ -3,155 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talha's Stream</title>
+    <title>Shopping Website</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #111; /* Dark background color */
-            margin: 0;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-        #loading-screen {
+        .header {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .icons {
+            display: flex;
+            gap: 15px;
+        }
+        .header .icons i {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .banner {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .new-arrivals, .categories {
+            padding: 20px;
+            text-align: center;
+        }
+        .new-arrivals h2, .categories h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .products, .categories-items {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            background-color: #000000;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            flex-direction: column; /* Allows stacking of GIF and image */
-        }
-        #loading-gif {
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -25%);
-            width: 80%; /* Adjust size if needed */
-            height: auto;
-        }
-        #overlay-image {
-            position: absolute;
-            top: 58%; /* Adjust position */
-            left: 50%;
-            transform: translate(-50%, -30%);
-            width: 100%; /* Adjust size */
-            height: auto;
-            z-index: 10000; /* Ensure it appears above the GIF */
-        }
-        .button-container {
-            display: none; /* Hidden initially */
-            flex-direction: column;
             gap: 20px;
-            align-items: center;
-            position: relative;
         }
-        .button-with-image {
-            display: inline-block;
+        .product, .category-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            width: 150px;
             text-align: center;
-            color: #fff; /* Text color */
-            font-size: 13px;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            border-radius: 30px; /* Rounded corners */
-            background-color: rgba(255, 255, 255, 0.1); /* Light background color */
-            transition: background-color 0.3s ease;
-            width: 200px; /* Adjust button width */
-            height: 200px; /* Adjust button height */
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5); /* Reduced glow effect */
         }
-        .button-with-image:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* Darker background color on hover */
-        }
-        .button-with-image img {
-            display: block;
+        .product img, .category-item img {
             width: 100%;
             height: auto;
-            border-radius: 30px; /* Match button radius */
         }
-        .button-with-image span {
-            position: absolute;
-            top: 90%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-        }
-        .android-app-button {
-            display: none; /* Hidden initially */
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #004080; /* Dark blue background */
-            border-radius: 50%; /* Round shape */
-            width: 80px; /* Button width */
-            height: 80px; /* Button height */
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            color: #fff; /* White text color */
-            font-weight: bold;
+        .product h3, .category-item h3 {
             font-size: 16px;
-            box-shadow: 0 0 15px rgba(0, 64, 128, 0.5); /* Blue glow effect */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: bounce 2s infinite; /* Bounce animation */
+            margin: 10px 0;
+        }
+        .product p {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+        }
+        .product .price {
+            color: #ff6600;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .product button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .product button:hover {
+            background-color: #e65c00;
+        }
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #ff6600;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .bottom-nav div {
             text-align: center;
+            cursor: pointer;
         }
-        .android-app-button:hover {
-            transform: scale(1.1); /* Slightly increase size on hover */
-            box-shadow: 0 0 25px rgba(0, 64, 128, 0.7); /* Increase glow on hover */
+        .bottom-nav div i {
+            font-size: 20px;
         }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-15px);
-            }
-            60% {
-                transform: translateY(-7px);
-            }
+        .bottom-nav div p {
+            margin: 5px 0 0;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <div id="loading-screen">
-        <img id="loading-gif" src="https://s12.gifyu.com/images/S5q9v.gif" alt="Loading GIF">
-        <img id="overlay-image" src="https://s10.gifyu.com/images/S5qTI.jpg" alt="Overlay Image">
-    </div>
-    <div class="button-container" id="main-content">
-        <a href="https://t.talhasstream-cricket.000.pe/" class="button-with-image">
-            <img src="https://s12.gifyu.com/images/StN9A.gif" alt="Button 1 Image">
-            <span>All Types Cricket Match Live</span>
-        </a>
-        <a href="https://t.talhasstream-football-1.000.pe/" class="button-with-image">
-            <img src="https://s10.gifyu.com/images/StT3e.gif" alt="Button 2 Image">
-            <span>Copa America Live</span>
-        </a>
-        <a href="https://t.talhasstream-football-2.000.pe/" class="button-with-image">
-            <img src="https://s10.gifyu.com/images/StTRx.gif" alt="Button 3 Image">
-            <span>UEFA EURO Cup Live</span>
-        </a>
-    </div>
-    <a href="https://example.com/android-app-link" class="android-app-button" id="android-app-button" target="_blank">
-        Android App
-    </a>
 
-    <script>
-        // Show the main content after 3 seconds
-        setTimeout(function() {
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('main-content').style.display = 'flex';
-            document.getElementById('android-app-button').style.display = 'flex';
-        }, 3000);
-    </script>
-</body>
-</html>
+    <div class="header">
+        <div class="logo">LiVE Shopping</div>
+        <div class="icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-shopping-cart"></i>
+            <i class="fas fa-user"></i>
+        </div>
+    </div>
+
+    <div class="banner">
+        <h1>New Arrival Fashion Sale</h1>
+        <p>Get the latest fashion trends at amazing prices!</p>
+    </div>
+
+    <div class="new-arrivals">
+        <h2>New Arrivals</h2>
+        <div class="products">
+            <div class="product">
+                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
+                <h3>Blue Shirt</h3>
+                <p>৳1,490</p>
+                <div class="price">৳950</div>
+                <button>Order Now</button>
+            </div>
+            <div class="product">
+                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Product Image">
+                <h3>Orange Polo</h3>
+                <p>৳990</p>
+                <div class="price">৳750</div>
+                <button>Order Now</button>
+            </div>
+            <!-- More products can be added here -->
+        </div>
+    </div>
+
+    <div class="categories">
+        <h2>Categories</h2>
+        <div class="categories-items">
+            <div class="category-item">
+                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Shirts">
+                <h3>Shirt</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Pants">
+                <h3>Pant</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://s10.gifyu.com/images/S5WOf.jpg" alt="Punjabi">
+                <h3>Panjabi</h3>
+            </div>
+            <!-- More categories can be added here -->
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div>
+            <i class="fas fa-home"></i>
+            <p>Home</p>
+        </div>
+        <div>
+            <i class="fas fa-th-large"></i>
+            <p>Categories</p>
+        </div>
+        <div>
+            <i class="fas fa-box"></i>
+            <p>All Product</p>
+        </div>
+        <div>
+            <i class="fas fa-phone"></i>
+            <p>Phone</p>
+        </div>
+    </div>
+
 </body>
 </html>
