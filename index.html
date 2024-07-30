@@ -315,24 +315,7 @@
         </div>
     </div>
 
-    <div class="bottom-nav">
-        <div onclick="navigateTo('home')">
-            <i class="fas fa-home"></i>
-            <p>Home</p>
-        </div>
-        <div onclick="navigateTo('categories')">
-            <i class="fas fa-th-large"></i>
-            <p>Categories</p>
-        </div>
-        <div onclick="navigateTo('popular')">
-            <i class="fas fa-box"></i>
-            <p>Popular</p>
-        </div>
-        <div onclick="navigateTo('help')">
-            <i class="fas fa-phone"></i>
-            <p>Help</p>
-        </div>
-    </div>
+    
 
     <div class="footer">
         <a href="https://facebook.com/yourpage" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -340,11 +323,24 @@
         <a href="tel:+1234567890"><i class="fas fa-phone"></i></a>
         <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
-
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menuOverlay');
             menu.classList.toggle('active');
+        }
+        function navigateTo(section) {
+            if (section === 'home') {
+                window.location.href = 'index.html'; // Change to your home page URL
+            } else if (section === 'male') {
+                window.location.href = 'male.html'; // Change to your male category URL
+            } else if (section === 'female') {
+                window.location.href = 'female.html'; // Change to your female category URL
+            } else if (section === 'popular') {
+                window.location.href = 'popular.html'; // Change to your popular page URL
+            } else if (section === 'help') {
+                window.location.href = 'https://wa.me/1234567890'; // Change to your help page URL
+            }
+            toggleMenu();
         }
 
         function toggleSubMenu(id) {
