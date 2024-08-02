@@ -1,69 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controlled Fullscreen iFrame</title>
+    <title>Embedded iFrame</title>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Set the height you need */
             overflow: hidden;
         }
-        iframe {
+        .iframe-container iframe {
             position: absolute;
-            border: none;
+            top: -220px; /* Adjust based on the part you want to show */
+            left: 0;
             width: 100%;
-            height: 100%;
-        }
-        .controls {
-            position: absolute;
-            top: 40px;
-            left: 10px;
-            z-index: 1000;
-        }
-        .controls button {
-            margin: 5px;
+            height: 800px; /* Adjust based on the part you want to show */
+            border: 0;
         }
     </style>
+    <title>Lower Video Quality</title>
 </head>
 <body>
-    <div class="controls">
-        <button onclick="scrollIframe('up')">Up</button>
-        <button onclick="scrollIframe('down')">Down</button>
-        <button onclick="scrollIframe('left')">Left</button>
-        <button onclick="scrollIframe('right')">Right</button>
+    <div class="iframe-container">
+        <iframe src="https://bokulsports.com/livetv/watch/copa-america-live-6/182/" scrolling="no" allowfullscreen></iframe>
     </div>
-    <iframe id="myIframe" src="https://nowsportstv.com/" scrolling="no"></iframe>
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width:110%;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+    <iframe id="videoPlayer" src="https://en.gdplayertv.to/live-tv/premier-sports-1/?embed=1&autoplay=1&mute=1" frameborder="0" allow="autoplay" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+
     <script>
-        const iframe = document.getElementById('myIframe').contentWindow;
-        let scrollX = 0;
-        let scrollY = 0;
-        const step = 50; // Amount to scroll the iframe in pixels
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.getElementById('videoPlayer');
+            const lowQualityUrl = "https://en.gdplayertv.to/live-tv/premier-sports-1/?embed=1&autoplay=1&mute=1&quality=low"; // Example URL with quality parameter
 
-        function scrollIframe(direction) {
-            switch (direction) {
-                case 'up':
-                    scrollY -= step;
-                    break;
-                case 'down':
-                    scrollY += step;
-                    break;
-                case 'left':
-                    scrollX -= step;
-                    break;
-                case 'right':
-                    scrollX += step;
-                    break;
-            }
-            iframe.scrollTo(scrollX, scrollY);
-        }
-
-        document.getElementById('myIframe').onload = function() {
-            // Ensure the iframe content is loaded before scrolling
-            iframe.scrollTo(scrollX, scrollY);
-        };
+            iframe.src = lowQualityUrl;
+        });
     </script>
 </body>
 </html>
