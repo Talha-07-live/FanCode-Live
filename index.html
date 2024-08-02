@@ -14,27 +14,56 @@
         iframe {
             position: absolute;
             border: none;
+            width: 100%;
+            height: 100%;
+        }
+        .controls {
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            z-index: 1000;
+        }
+        .controls button {
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <iframe id="myIframe" src="https://nowsportstv.com/"></iframe>
+    <div class="controls">
+        <button onclick="scrollIframe('up')">Up</button>
+        <button onclick="scrollIframe('down')">Down</button>
+        <button onclick="scrollIframe('left')">Left</button>
+        <button onclick="scrollIframe('right')">Right</button>
+    </div>
+    <iframe id="myIframe" src="https://nowsportstv.com/" scrolling="no"></iframe>
     <script>
-        function setIframePosition(left, top, width, height) {
-            const iframe = document.getElementById('myIframe');
-            iframe.style.left = left + 'px';
-            iframe.style.top = top + '50px';
-            iframe.style.width = width + 'px';
-            iframe.style.height = height + 'px';
+        const iframe = document.getElementById('myIframe').contentWindow;
+        let scrollX = 0;
+        let scrollY = 0;
+        const step = 50; // Amount to scroll the iframe in pixels
+
+        function scrollIframe(direction) {
+            switch (direction) {
+                case 'up':
+                    scrollY -= step;
+                    break;
+                case 'down':
+                    scrollY += step;
+                    break;
+                case 'left':
+                    scrollX -= step;
+                    break;
+                case 'right':
+                    scrollX += step;
+                    break;
+            }
+            iframe.scrollTo(scrollX, scrollY);
         }
 
-        // Example usage: Adjust the iframe to cover the entire screen
-        setIframePosition(0, 0, window.innerWidth, window.innerHeight);
-
-        // Adjust iframe on window resize
-        window.addEventListener('resize', () => {
-            setIframePosition(0, 0, window.innerWidth, window.innerHeight);
-        });
+        document.getElementById('myIframe').onload = function() {
+            // Ensure the iframe content is loaded before scrolling
+            iframe.scrollTo(scrollX, scrollY);
+        };
     </script>
 </body>
 </html>
